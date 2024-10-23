@@ -53,18 +53,14 @@ h5, w5 = img5.shape[:2]
 img1_warped = cv.warpPerspective(img1, H, (w5, h5))
 
 # Stitch the images together by blending
-# Option 1: Overlay img1_warped onto img5
 result = img5.copy()
 result[np.where(img1_warped > 0)] = img1_warped[np.where(img1_warped > 0)]
 
-# Option 2: Combine the images using a weighted average
-alpha = 0.5  # Blending factor
-blended_result = cv.addWeighted(img1_warped, alpha, img5, 1 - alpha, 0)
+
 
 # Display the results
 cv.imshow('Warped Image', img1_warped)
 cv.imshow('Stitched Image', result)
-cv.imshow('Blended Image', blended_result)
 cv.waitKey(0)
 cv.destroyAllWindows()
 
